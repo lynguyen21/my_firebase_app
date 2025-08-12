@@ -1,0 +1,43 @@
+name: my_firebase_app
+description: "A new Flutter project."
+# The following line prevents the package from being accidentally published to
+# pub.dev using `flutter pub publish`. This is preferred for private packages.
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.3.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # Firebase core & auth
+  firebase_core: ^2.30.0
+  firebase_auth: ^4.17.0
+  firebase_ui_auth: ^1.14.0
+  uni_links: ^0.5.1
+
+  # State management
+  provider: ^6.1.1
+
+  # Routing
+  go_router: ^13.2.0
+
+  # Fonts
+  google_fonts: ^6.2.0
+
+  # For using material design 3
+  flutter_material_symbols: ^0.0.4
+
+  # Local storage
+  shared_preferences: ^2.2.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.1
+
+flutter:
+  uses-material-design: true
