@@ -6,12 +6,13 @@ class AuthService {
   Future<void> sendSignInLink(String email) async {
     try {
       ActionCodeSettings actionCodeSettings = ActionCodeSettings(
-        url: 'https://budget-tracker/signin', // ✅ base redirect URL only
+        url:
+            'https://my-firebase-app-8a8bc.firebaseapp.com/signin', // ✅ Use your Firebase auth domain
         handleCodeInApp: true,
-        androidPackageName: 'com.example.budget_tracker',
+        androidPackageName: 'com.example.my_firebase_app',
         androidInstallApp: true,
         androidMinimumVersion: '21',
-        iOSBundleId: 'com.example.budgetTracker',
+        iOSBundleId: 'com.example.myFirebaseApp',
       );
 
       await _auth.sendSignInLinkToEmail(

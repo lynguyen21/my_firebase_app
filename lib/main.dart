@@ -1,18 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter/foundation.dart';
 
 import 'firebase_options.dart';
 import 'app_state.dart';
 import 'home_page.dart';
 import 'src/register_page.dart'; // import your register page
+import 'src/email_link_signin_page.dart'; // import email link signin page
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
+  // Handle email link authentication for web platform
+  if (kIsWeb) {
+    await _handleEmailLinkAuthentication();
+  }
 
   runApp(
     ChangeNotifierProvider(
@@ -20,6 +28,54 @@ void main() async {
       child: const BudgetTrackerApp(),
     ),
   );
+}
+
+Future<void> _handleEmailLinkAuthentication() async {
+  try {
+    // Check if the URL contains an email link
+    final url = Uri.base.toString();
+    if (FirebaseAuth.instance.isSignInWithEmailLink(url)) {
+      // Try to get the email from localStorage (where it was stored when sending the link)
+      final email = _getEmailFromStorage();
+
+      if (email != null) {
+        // Complete the sign-in with the email link
+        final userCredential = await FirebaseAuth.instance.signInWithEmailLink(
+          email: email,
+          emailLink: url,
+        );
+
+        print(
+            '✅ Successfully signed in with email link: ${userCredential.user?.email}');
+
+        // Clear the stored email
+        _clearStoredEmail();
+      } else {
+        print('⚠️ Email not found in storage for email link authentication');
+      }
+    }
+  } catch (e) {
+    print('❌ Error handling email link authentication: $e');
+  }
+}
+
+String? _getEmailFromStorage() {
+  // For web, we can use window.localStorage to store the email
+  // This is a simplified implementation - in a real app, you'd use proper storage
+  try {
+    return null; // Placeholder - would implement proper storage
+  } catch (e) {
+    return null;
+  }
+}
+
+void _clearStoredEmail() {
+  // Clear the stored email
+  try {
+    // Implementation for clearing stored email
+  } catch (e) {
+    print('Error clearing stored email: $e');
+  }
 }
 
 final _router = GoRouter(
@@ -62,6 +118,21 @@ final _router = GoRouter(
                 context.pushReplacement('/');
               }),
             ],
+            footerBuilder: (context, action) {
+              return Padding(
+                padding: const EdgeInsets.only(top: 16.0),
+                child: Column(
+                  children: [
+                    const Divider(),
+                    const SizedBox(height: 8),
+                    TextButton(
+                      onPressed: () => context.push('/sign-in/email-link'),
+                      child: const Text('Sign in with email link'),
+                    ),
+                  ],
+                ),
+              );
+            },
             // Optionally add a button or link to register here in your SignInScreen UI
           ),
           routes: [
@@ -71,6 +142,10 @@ final _router = GoRouter(
                 final email = state.uri.queryParameters['email'];
                 return ForgotPasswordScreen(email: email, headerMaxExtent: 200);
               },
+            ),
+            GoRoute(
+              path: 'email-link',
+              builder: (context, state) => const EmailLinkSignInPage(),
             ),
           ],
         ),

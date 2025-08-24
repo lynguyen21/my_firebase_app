@@ -64,7 +64,6 @@ build/
 coverage/
 
 # Generated files
-lib/generated_plugin_registrant.dart
 
 # Firebase related
 google-services.json

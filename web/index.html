@@ -31,6 +31,24 @@
 
   <title>my_firebase_app</title>
   <link rel="manifest" href="manifest.json">
+  
+  <!-- Firebase SDK for Web -->
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+  <script>
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyBAohXTxzXM5Lbc2HSedgekoPOWKFBXMe4",
+      authDomain: "my-firebase-app-8a8bc.firebaseapp.com",
+      projectId: "my-firebase-app-8a8bc",
+      storageBucket: "my-firebase-app-8a8bc.firebasestorage.app",
+      messagingSenderId: "766603332494",
+      appId: "1:766603332494:web:dd3155992f45d417edb2df"
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+  </script>
 </head>
 <body>
   <script src="flutter_bootstrap.js" async></script>
