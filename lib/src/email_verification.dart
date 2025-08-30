@@ -45,4 +45,19 @@ class EmailVerificationService {
     final user = _auth.currentUser;
     return user?.emailVerified ?? false;
   }
+
+  /// Refreshes verification status - call this after user clicks verification link
+  Future<bool> refreshVerificationStatus() async {
+    try {
+      final user = _auth.currentUser;
+      if (user != null) {
+        await user.reload();
+        return user.emailVerified;
+      }
+      return false;
+    } catch (e) {
+      print('Error refreshing verification status: $e');
+      return false;
+    }
+  }
 }

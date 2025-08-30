@@ -7,12 +7,12 @@ class Header extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Padding(
-    padding: const EdgeInsets.all(8.0),
-    child: Text(
-      heading,
-      style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-    ),
-  );
+        padding: const EdgeInsets.all(8.0),
+        child: Text(
+          heading,
+          style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+        ),
+      );
 }
 
 /// A paragraph-style text widget for descriptions or details.
@@ -22,12 +22,12 @@ class Paragraph extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Padding(
-    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-    child: Text(
-      content,
-      style: const TextStyle(fontSize: 18, color: Colors.black87),
-    ),
-  );
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+        child: Text(
+          content,
+          style: const TextStyle(fontSize: 18, color: Colors.black87),
+        ),
+      );
 }
 
 /// An icon paired with detail text, useful for showing transaction summaries, categories, etc.
@@ -38,15 +38,15 @@ class IconAndDetail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Padding(
-    padding: const EdgeInsets.all(8.0),
-    child: Row(
-      children: [
-        Icon(icon, color: Colors.green),
-        const SizedBox(width: 8),
-        Text(detail, style: const TextStyle(fontSize: 18)),
-      ],
-    ),
-  );
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          children: [
+            Icon(icon, color: Colors.green),
+            const SizedBox(width: 8),
+            Text(detail, style: const TextStyle(fontSize: 18)),
+          ],
+        ),
+      );
 }
 
 /// A styled button consistent across the Budget Tracker app.
@@ -58,12 +58,12 @@ class StyledButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => OutlinedButton(
-    style: OutlinedButton.styleFrom(
-      side: const BorderSide(color: Colors.green),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-      foregroundColor: Colors.green,
-    ),
-    onPressed: onPressed,
-    child: child,
-  );
+        style: OutlinedButton.styleFrom(
+          side: const BorderSide(color: Colors.green),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+          foregroundColor: Colors.green,
+        ),
+        onPressed: onPressed,
+        child: child,
+      );
 }

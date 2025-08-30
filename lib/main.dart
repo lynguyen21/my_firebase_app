@@ -34,6 +34,19 @@ Future<void> _handleEmailLinkAuthentication() async {
   try {
     // Check if the URL contains an email link
     final url = Uri.base.toString();
+
+    // Handle email verification links
+    if (url.contains('mode=verifyEmail')) {
+      print('🔍 Processing email verification link...');
+      final user = FirebaseAuth.instance.currentUser;
+      if (user != null) {
+        await user.reload(); // This updates the emailVerified status
+        print('✅ User reloaded, email verified: ${user.emailVerified}');
+      }
+      return;
+    }
+
+    // Handle email sign-in links (existing code)
     if (FirebaseAuth.instance.isSignInWithEmailLink(url)) {
       // Try to get the email from localStorage (where it was stored when sending the link)
       final email = _getEmailFromStorage();
